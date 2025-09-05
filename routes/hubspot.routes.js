@@ -5,6 +5,8 @@ const dealModel = require('../models/deal.model');
 const router = express.Router();
 
 router.post('/hubspot/webhook', async (req, res) => {
+    console.log("req received :", req);
+    console.log("Received HubSpot webhook:", req.body);
     // Handle HubSpot webhook events here
     const events = req.body;
 
