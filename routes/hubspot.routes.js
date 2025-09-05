@@ -19,6 +19,7 @@ router.post('/hubspot/webhook', async (req, res) => {
             let dealData;
             try {
                 const fetchDeal = async () => {
+                    console.log('check env hubspot token :', process.env.HUBSPOT_TOKEN);
                     const { data } = await axios.get(
                         `https://api.hubapi.com/crm/v3/objects/deals/${dealId}`,
                         {
@@ -34,6 +35,7 @@ router.post('/hubspot/webhook', async (req, res) => {
                 try {
                     dealData = await fetchDeal();
                 } catch (err) {
+                    console.error(`Error fetching deal ${dealId}:`, err.message);
                     if (err.response && err.response.status === 404) {
                         console.log(`Deal ${dealId} not found yet, retrying in 1s...`);
                         await new Promise(r => setTimeout(r, 1000));
